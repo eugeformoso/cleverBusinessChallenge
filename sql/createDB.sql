@@ -1,44 +1,88 @@
-CREATE TABLE Type_Management(
-    id                      int8        not null,
-    code                    varchar     not null,
-    value                   varchar     not null,
-    constraint id_pk PRIMARY KEY (id)
-);
+DROP TABLE Registration;
+DROP TABLE Employee;
 
 CREATE TABLE Employee(
-    employee_id             int8        not null,
-    date                    date        not null,
-    first_name              varchar     not null,
-    last_name               varchar     not null,
-    gender_id               int8        not null,
-    register_type_id        int8        not null,
-    business_location_id    int8        not null,
-    constraint employee_pk PRIMARY KEY (employee_id),
-    constraint employee_gender_fk FOREIGN KEY (gender_id) REFERENCES Type_Management (id),
-    constraint employee_register_type_fk FOREIGN KEY (register_type_id)REFERENCES Type_Management (id),
-    constraint employee_business_location_fk FOREIGN KEY (business_location_id) REFERENCES Type_Management (id)
+                         employee_id                     int8        not null,
+                         first_name                      varchar     not null,
+                         last_name                       varchar     not null,
+                         gender                          varchar     not null,
+                         constraint employee_pk PRIMARY KEY (employee_id)
 );
 
-INSERT INTO Type_Management VALUES ('1','gender','female');
-INSERT INTO Type_Management VALUES ('2','gender','male');
-INSERT INTO Type_Management VALUES ('3','register_type','income');
-INSERT INTO Type_Management VALUES ('4','register_type','expenses');
-INSERT INTO Type_Management VALUES ('5','business_location','Brasil');
-INSERT INTO Type_Management VALUES ('6','business_location','Argentina');
-INSERT INTO Type_Management VALUES ('7','business_location','España');
+CREATE TABLE Registration(
+                             registration_id         serial      not null,
+                             employee_id             int8        not null,
+                             date                    date        not null,
+                             register_type           varchar     not null,
+                             business_location       varchar     not null,
+                             constraint registration_pk PRIMARY KEY (registration_id),
+                             constraint employee_fk FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+);
 
-INSERT INTO Employee VALUES ('1','','Marta','Perez','15/4/2022','1','3','6');
-INSERT INTO Employee VALUES ('2','','Marta','Perez','16/4/2022','1','4','6');
-INSERT INTO Employee VALUES ('3','','Juan','Gomez','15/5/2022','2','3','7');
-INSERT INTO Employee VALUES ('4','','Mario','Sosa','15/5/2022','2','3','7');
-INSERT INTO Employee VALUES ('5','','Mario','Sosa','15/5/2022','2','4','7');
-INSERT INTO Employee VALUES ('6','','Juan','Gomez','15/5/2022','2','4','7');
-INSERT INTO Employee VALUES ('7','','Juana','Alaniz','15/6/2022','1','3','5');
-INSERT INTO Employee VALUES ('8','','Juana','Alaniz','16/6/2022','1','4','5');
-INSERT INTO Employee VALUES ('9','','Florencia','Pena','16/6/2022','1','3','5');
-INSERT INTO Employee VALUES ('10','','Florencia','Pena','16/6/2022','1','4','5');
-INSERT INTO Employee VALUES ('11','','Jose','Aguero','16/6/2022','2','3','5');
-INSERT INTO Employee VALUES ('12','','Jose','Aguero','17/6/2022','2','4','5');
+INSERT INTO Employee VALUES (1,'Marta','Perez','femenino');
+INSERT INTO Employee VALUES (2,'Juan','Gomez','masculino');
+INSERT INTO Employee VALUES (3,'Mario','Sosa','masculino');
+INSERT INTO Employee VALUES (4,'Juana','Alaniz','femenino');
+INSERT INTO Employee VALUES (5,'Florencia','Pena','femenino');
+INSERT INTO Employee VALUES (6,'Jose','Aguero','masculino');
+INSERT INTO Employee VALUES (7,'Pablo','Alaniz','masculino');
+INSERT INTO Employee VALUES (8,'Matias','Vallejos','masculino');
+INSERT INTO Employee VALUES (9,'Andrea','Gonzalez','femenino');
+INSERT INTO Employee VALUES (10,'Josefina','Campos','femenino');
+
+INSERT INTO Registration VALUES (1,1,'2022-4-15','ingreso','Argentina');
+INSERT INTO Registration VALUES (2,1,'2022-4-16','egreso','Argentina');
+INSERT INTO Registration VALUES (3,2,'2022-4-15','ingreso','Argentina');
+INSERT INTO Registration VALUES (4,2,'2022-4-15','egreso','Argentina');
+INSERT INTO Registration VALUES (5,2,'2022-5-15','ingreso','Argentina');
+INSERT INTO Registration VALUES (6,2,'2022-5-15','egreso','Argentina');
+INSERT INTO Registration VALUES (7,3,'2022-5-15','ingreso','Brasil');
+INSERT INTO Registration VALUES (8,3,'2022-5-15','egreso','Brasil');
+INSERT INTO Registration VALUES (9,4,'2022-5-16','ingreso','Brasil');
+INSERT INTO Registration VALUES (10,4,'2022-5-17','egreso','Brasil');
+INSERT INTO Registration VALUES (11,4,'2022-6-15','ingreso','Brasil');
+INSERT INTO Registration VALUES (12,4,'2022-6-15','egreso','Brasil');
+INSERT INTO Registration VALUES (13,5,'2022-5-15','ingreso','España');
+INSERT INTO Registration VALUES (14,5,'2022-5-15','egreso','España');
+INSERT INTO Registration VALUES (15,5,'2022-5-16','ingreso','España');
+INSERT INTO Registration VALUES (16,5,'2022-5-17','egreso','España');
+INSERT INTO Registration VALUES (17,6,'2022-6-16','ingreso','España');
+INSERT INTO Registration VALUES (18,6,'2022-6-15','egreso','España');
+INSERT INTO Registration VALUES (19,6,'2022-7-15','ingreso','España');
+INSERT INTO Registration VALUES (20,6,'2022-7-15','egreso','España');
+INSERT INTO Registration VALUES (21,7,'2022-6-15','ingreso','Argentina');
+INSERT INTO Registration VALUES (22,7,'2022-6-15','egreso','Argentina');
+INSERT INTO Registration VALUES (23,8,'2022-5-15','ingreso','Brasil');
+INSERT INTO Registration VALUES (24,8,'2022-5-15','egreso','Brasil');
+INSERT INTO Registration VALUES (25,9,'2022-5-16','ingreso','España');
+INSERT INTO Registration VALUES (27,9,'2022-5-17','egreso','España');
+INSERT INTO Registration VALUES (28,10,'2022-5-17','ingreso','España');
+INSERT INTO Registration VALUES (29,10,'2022-5-17','egreso','España');
+INSERT INTO Registration VALUES (30,10,'2022-5-18','ingreso','España');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,6 @@
 package com.cleverbusiness.cleverbusiness.controllers;
 
-import com.cleverbusiness.cleverbusiness.models.EmployeeModel;
-import com.cleverbusiness.cleverbusiness.models.ResponseError;
+import com.cleverbusiness.cleverbusiness.models.Employee;
 import com.cleverbusiness.cleverbusiness.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,38 +14,27 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping(value = "/employees")
-    @ResponseBody
+    @GetMapping("/employees/employessList")
     @ResponseStatus(HttpStatus.OK)
-    public List<EmployeeModel> getAll() {
-        return employeeService.getAll();
+    public ResponseEntity<List> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAll());
     }
 
-    @GetMapping(value = "/employees/{idEmployee}")
-    @ResponseBody
-    public Object getEmployee(@PathVariable("idEmployee") Long idEmployee) {
-        EmployeeModel employee = employeeService.getEmployee(idEmployee);
-        if ( employee == null) {
-            return new ResponseEntity(new ResponseError(404, String.format("Employee %d not found", idEmployee)), HttpStatus.NOT_FOUND);
-        }
-        return employee;
+    @GetMapping( "/employees/getEmployee")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Employee> getEmployee(@RequestBody Long idEmployee) {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getEmployee(idEmployee));
     }
 
-    @PostMapping(value = "/employees")
+    @PostMapping("/employees/save")
     @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Object createEmployee(@RequestBody EmployeeModel employee) {
-        return employeeService.saveEmployee(employee);
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.saveEmployee(employee));
     }
 
-    @PutMapping(value = "/employees")
-    @ResponseBody
-    public Object updateEmployee(@RequestBody EmployeeModel employee) {
-        EmployeeModel res = employeeService.upDateEmployee(employee);
-        if ( res == null) {
-            return new ResponseEntity(new ResponseError(404, String.format("Employee with ID %d not found", employee.getIdEmployee())), HttpStatus.NOT_FOUND);
-        }
-        return res;
+    @PutMapping("/employees/upDateEmployee")
+    @ResponseStatus(HttpStatus.UPGRADE_REQUIRED)
+    public ResponseEntity<Employee> updDateEmployee(@RequestBody Employee employee) {
+        return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED).body(employeeService.upDateEmployee(employee));
     }
-
 }
