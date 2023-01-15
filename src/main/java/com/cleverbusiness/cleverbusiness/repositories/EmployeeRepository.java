@@ -13,6 +13,9 @@ import java.util.Date;
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeModel,Long> {
 
+    @Query("")
+    EmployeeModel register (@Param("idEmployee") Long idEmployee,@Param("dateFrom") Date date,@Param("registerType") String registerType ,@Param("businessLocation") String businessLocation);
+
     @Query("SELECT employee FROM EmployeeModel employee WHERE employee.businessLocation = :businessLocation AND  employee.date BETWEEN ?1 AND ?2")
     List<EmployeeModel> search (@Param("businessLocation") String businessLocation,@Param("dateFrom")Date dateFrom,@Param("dateTo")Date dateTo,@Param("descriptionFilter") String descriptionFilter);
 

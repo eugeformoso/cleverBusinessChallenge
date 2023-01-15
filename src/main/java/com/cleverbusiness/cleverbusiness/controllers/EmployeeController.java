@@ -49,14 +49,4 @@ public class EmployeeController {
         return res;
     }
 
-    @DeleteMapping(value = "/employees/{idEmployee}")
-    @ResponseBody
-    public Object deleteEmployee(@PathVariable Long idEmployee) {
-        EmployeeModel res = employeeService.deleteEmployee(idEmployee);
-        if ( res == null) {
-            return new ResponseEntity(new ResponseError(404, String.format("Employee with ID %d not found", idEmployee)), HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity(null,HttpStatus.NO_CONTENT);
-    }
-
 }
