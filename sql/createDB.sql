@@ -2,7 +2,7 @@ DROP TABLE Registration;
 DROP TABLE Employee;
 
 CREATE TABLE Employee(
-                         employee_id                     int8        not null,
+                         employee_id                     serial      not null,
                          first_name                      varchar     not null,
                          last_name                       varchar     not null,
                          gender                          varchar     not null,
